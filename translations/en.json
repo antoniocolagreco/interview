@@ -1,0 +1,23 @@
+{
+  "locale": "en",
+  "language": "english",
+  "title": "Interview Questions",
+  "name": "Name",
+  "email_address": "Email address",
+  "password": "Password",
+  "reset": "Reset",
+  "to_title": "to Interview Questions",
+  "login": "Login",
+  "signup": "Sign up",
+  "note": "Note",
+  "sign_up_note": "The password requires at least 8 characers with at least one uppercase letter, one lowercase letter and one number.",
+  "validation": {
+    "email_missing": "required email",
+    "email_invalid": "invalid email",
+    "email_short": "too short",
+    "password_missing": "required password",
+    "password_invalid": "invalid password",
+    "password_short": "too short"
+  },
+  "create_account": "Create an account"
+}
