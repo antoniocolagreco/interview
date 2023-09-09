@@ -16,7 +16,6 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  password          String?
   refresh_token     String? @db.Text
   access_token      String? @db.Text
   expires_at        Int?
@@ -39,13 +38,18 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?    @unique
   emailVerified DateTime?
   image         String?
+  password      String?
+  language      String?
+  role          Role       @default(USER)
   accounts      Account[]
   sessions      Session[]
+  questions     Question[]
+  solutions     Solution[]
 }
 
 model VerificationToken {
@@ -54,4 +58,40 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Solution {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  question  Question @relation(fields: [id], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+}
+
+model Tag {
+  id        String     @id @default(cuid())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  name      String
+  author    String
+  questions Question[]
+}
+
+model Question {
+  id          String     @id @default(cuid())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  title       String
+  description String?
+  response    String?
+  author      User?      @relation(fields: [authorId], references: [id])
+  authorId    String?
+  tags        Tag[]
+  solution    Solution[]
+}
+
+enum Role {
+  USER
+  ADMIN
 }

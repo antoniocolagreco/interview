@@ -6,7 +6,7 @@ export type BoxProps = HTMLAttributes<HTMLDivElement> & {}
 const Box: FC<BoxProps> = (props) => {
   const { children, className, ...otherProps } = props
   return (
-    <div className={clsx(className, 'p-4 border-[1px] border-neutral-200 bg-neutral-100 rounded-lg')} {...otherProps}>
+    <div className={clsx(className, 'p-4 border-[1px] border-neutral-200 bg-neutral-50 rounded-lg')} {...otherProps}>
       {children}
     </div>
   )

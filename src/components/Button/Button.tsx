@@ -6,37 +6,38 @@ type BUTTON_VARIANT = 'default' | 'secondary' | 'cancel'
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: BUTTON_VARIANT
-  loading?: boolean
+  isLoading?: boolean
   icon?: ReactNode
 }
 
 const variants = {
-  default: 'bg-yellow-500 hover:bg-yellow-400',
-  secondary: 'bg-neutral-300 hover:bg-neutral-200',
-  cancel: 'bg-red-500 hover:bg-red-400',
+  default: 'bg-yellow-500 hover:bg-yellow-400 border-yellow-500 hover:border-yellow-400',
+  secondary: 'bg-neutral-200 hover:bg-neutral-100 border-neutral-200',
+  cancel: 'bg-red-600 hover:bg-red-500 text-red-50',
 }
 
 const spinnerVariants = {
   default: 'bg-yellow-500 hover:bg-yellow-400',
   secondary: 'bg-neutral-30 hover:bg-neutral-200',
-  cancel: 'bg-red-500 hover:bg-red-400',
+  cancel: 'bg-rose-500 hover:bg-rose-400',
 }
 
 const Button: FC<ButtonProps> = (props) => {
-  const { icon, loading, variant = 'default', children, className, ...otherProps } = props
+  const { icon, isLoading, disabled, variant = 'default', children, className, ...otherProps } = props
 
   return (
     <button
+      disabled={isLoading || disabled}
       className={clsx(
         className,
-        'px-4 py-2 transition rounded-lg text-sm focus-visible:ring-2 ring-neutral-500 outline-none font-medium flex justify-center items-center',
+        'px-4 py-2 transition rounded-lg text-sm focus-visible:ring-2 ring-neutral-500 outline-none font-medium flex justify-center items-center disabled:opacity-30 border-[1px]',
         variants[variant]
       )}
       {...otherProps}
     >
       {icon ? (
         <>
-          {loading ? (
+          {isLoading ? (
             <LoadingSpinner
               foregroundClassName='stroke-neutral-800 opacity-75'
               backgroundClassName='stroke-neutral-800 opacity-25'

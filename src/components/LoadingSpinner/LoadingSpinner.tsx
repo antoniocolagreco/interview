@@ -10,7 +10,7 @@ type LoadingSpinnerProps = SVGAttributes<SVGElement> & {
 }
 
 const LoadingSpinner: FC<LoadingSpinnerProps> = (props) => {
-  const { foregroundClassName, backgroundClassName, strokeWidth = 10, children, size = 24, ...otherProps } = props
+  const { foregroundClassName, backgroundClassName, strokeWidth = 10, children, size = 20, ...otherProps } = props
 
   return (
     <svg fill='none' height={size} width={size} viewBox='0 0 66 66' {...otherProps}>

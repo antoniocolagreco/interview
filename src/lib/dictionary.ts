@@ -1,5 +1,6 @@
 import 'server-only'
 import { DictionaryType } from '../types/dictionary'
+import { getLanguageFromUrl } from './httpRuquestUtils'
 
 const DEFAULT_LANGUAGE = process.env.DEFAULT_LANGUAGE
 
@@ -9,7 +10,10 @@ const defaultDictionary = await import(`./../../translations/${DEFAULT_LANGUAGE}
 
 dictionaries.set(DEFAULT_LANGUAGE, defaultDictionary)
 
-const getDictionary = async (locale: string | undefined) => {
+const getDictionary = (locale?: string | undefined) => {
+  if (!locale) {
+    locale = getLanguageFromUrl()
+  }
   if (locale && dictionaries.has(locale)) return dictionaries.get(locale)!
   return dictionaries.get(DEFAULT_LANGUAGE)!
 }

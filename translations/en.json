@@ -8,10 +8,12 @@
   "reset": "Reset",
   "to_title": "to Interview Questions",
   "login": "Login",
+  "logout": "Logout",
   "signup": "Sign up",
   "note": "Note",
   "sign_up_note": "The password requires at least 8 characers with at least one uppercase letter, one lowercase letter and one number.",
   "validation": {
+    "required": "required",
     "email_missing": "required email",
     "email_invalid": "invalid email",
     "email_short": "too short",
@@ -19,5 +21,8 @@
     "password_invalid": "invalid password",
     "password_short": "too short"
   },
-  "create_account": "Create an account"
+  "email_already_in_use": "Email is already in use.",
+  "invalid_credentials": "Invalid credentials.",
+  "create_account": "Create an account",
+  "user_photo": "User photo"
 }

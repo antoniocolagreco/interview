@@ -5,17 +5,19 @@ const SUPPORTED_LANGUAGES = process.env.SUPPORTED_LANGUAGES.split(',')
 const DEFAULT_LANGUAGE = process.env.DEFAULT_LANGUAGE
 const PUBLIC_PAGES = process.env.PUBLIC_PAGES.split(',')
 
-const middleware = async (request: NextRequest) => {
-  const [pathname, requestedLanguage] = splitUrlFromLang(request.nextUrl.pathname)
-  const token = await getToken({ req: request })
-  const language = SUPPORTED_LANGUAGES.includes(requestedLanguage) ? requestedLanguage : getBestClientLanguage(request)
+const middleware = async (req: NextRequest) => {
+  const [pathname, requestedLanguage] = splitUrlFromLang(req.nextUrl.pathname)
+
+  const token = await getToken({ req })
+
+  const language = SUPPORTED_LANGUAGES.includes(requestedLanguage) ? requestedLanguage : getBestClientLanguage(req)
 
   if (!token && !PUBLIC_PAGES.includes(pathname)) {
-    return NextResponse.redirect(new URL(`/${language}/login`, request.nextUrl))
+    return NextResponse.redirect(new URL(`/${language}/login`, req.nextUrl))
   }
 
   if (!SUPPORTED_LANGUAGES.includes(requestedLanguage)) {
-    return NextResponse.redirect(new URL(`/${language}${pathname}`, request.nextUrl))
+    return NextResponse.redirect(new URL(`/${language}${pathname}`, req.nextUrl))
   }
 
   return NextResponse.next()
@@ -24,7 +26,8 @@ const middleware = async (request: NextRequest) => {
 export default middleware
 
 export const config = {
-  matcher: ['/((?!_next|favicon\\.ico|images).*)'],
+  matcher: ['/((?!_next|favicon\\.ico|images|api\\/auth).*)'],
+  // matcher: [],
 }
 
 const splitUrlFromLang = (value: string): [pathName: string, language: string] => {

@@ -1,32 +1,52 @@
 import { PrismaAdapter } from '@auth/prisma-adapter'
+import Argon2 from '@lib/argon2'
 import { PrismaClient } from '@prisma/client'
-import NextAuth, { AuthOptions } from 'next-auth'
+import { getLanguageFromClient } from '@src/lib/httpRuquestUtils'
+import { NextApiRequest, NextApiResponse } from 'next'
+import NextAuth, { NextAuthOptions } from 'next-auth'
+import CredentialsProvider from 'next-auth/providers/credentials'
 import GitHubProvider from 'next-auth/providers/github'
 
 const prisma = new PrismaClient()
 
-export const authOptions: AuthOptions = {
+const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   debug: process.env.NODE_ENV === 'production',
   session: { strategy: 'jwt' },
-  pages: { newUser: '', signIn: '', signOut: '', error: '', verifyRequest: '' },
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GitHubProvider({
       name: 'Github',
       clientId: process.env.GH_CLIENT_ID,
       clientSecret: process.env.GH_SECRET,
     }),
-    // CredentialsProvider({
-    //   name: 'Credentials',
-    //   credentials: { email: { label: 'email', type: 'text' }, password: { label: 'password', type: 'password' } },
-    //   authorize(credentials, req) {
+    CredentialsProvider({
+      name: 'Credentials',
+      credentials: { email: { label: 'email', type: 'text' }, password: { label: 'password', type: 'password' } },
+      async authorize(credentials, req) {
+        if (!credentials?.email || !credentials.password) return null
+        const user = await prisma.user.findUnique({ where: { email: credentials?.email } })
+        if (!user || !user.password) return null
+        const isPasswordRight = await Argon2.verifyPassword(user.password, credentials.password)
+        if (!isPasswordRight) return null
 
-    //   },
-    // }),
+        return user
+      },
+    }),
   ],
 }
 
-const handler = NextAuth(authOptions)
+const auth = async (req: NextApiRequest, res: NextApiResponse) => {
+  const lang = getLanguageFromClient(req.headers['accept-language'])
+  authOptions.pages = {
+    newUser: `/${lang}`,
+    signIn: `/${lang}/login`,
+    signOut: `/${lang}`,
+    error: `/${lang}/login`,
+    verifyRequest: `/${lang}/verify`,
+  }
+  return await NextAuth(req, res, authOptions)
+}
 
-export { handler as GET, handler as POST }
+export { auth as GET, auth as POST, authOptions }
 
