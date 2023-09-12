@@ -2,6 +2,7 @@ import '@app/globals.css'
 import clsx from 'clsx'
 import { Inter } from 'next/font/google'
 import { FC, HTMLAttributes } from 'react'
+import Providers from '../../components/Providers/Providers'
 import getDictionary from '../../lib/dictionary'
 import { LayoutMetaDataType } from '../../types/next'
 
@@ -10,7 +11,7 @@ const inter = Inter({ subsets: ['latin'] })
 type Params = { params: { lang: string } }
 
 export const generateMetadata: LayoutMetaDataType<Params> = async (props) => {
-  const d = await getDictionary(props.params.lang)
+  const d = getDictionary(props.params.lang)
   return { title: d.title }
 }
 
@@ -24,7 +25,10 @@ const RootLayout: FC<RootLayoutProps> = (props) => {
 
   return (
     <html lang={lang} className='min-h-screen'>
-      <body className={clsx(inter.className, 'min-h-screen text-neutral-800')}>{children}</body>
+      <body className={clsx(inter.className, 'min-h-screen text-neutral-800 flex flex-col overflow-x-hidden')}>
+        <Providers>{children}</Providers>
+        <div id='interview-portal' />
+      </body>
     </html>
   )
 }

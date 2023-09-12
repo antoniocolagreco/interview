@@ -1,9 +1,7 @@
-import { PrismaClient } from '@prisma/client'
+import prisma from '@db/prisma'
 import { NextRequest, NextResponse } from 'next/server'
 import Argon2 from '../../../../lib/argon2'
 import { NewUserSignUpData } from '../../../../types/common'
-
-const prisma = new PrismaClient()
 
 export const POST = async (req: NextRequest) => {
   const { email, password }: NewUserSignUpData = await req.json()

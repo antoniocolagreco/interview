@@ -25,6 +25,8 @@
       "@lib/*": ["./src/lib/*"],
       "@errors/*": ["./src/errors/*"],
       "@store/*": ["./src/store/*"],
+      "@features/*": ["./src/features/*"],
+      "@db/*": ["./src/db/*"],
       "@translations/*": ["./translations/*"]
     }
   },

@@ -1,7 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit'
-import { languageReducer } from '../slices/language/reducer'
+import { translationReducer } from '../features/translation/reducer'
+import { uiReducer } from '../features/ui/reducer'
 
-const allReducers = { language: languageReducer }
+const allReducers = { language: translationReducer, ui: uiReducer }
 
 export type RootState = ReturnType<typeof rootReducer>
 

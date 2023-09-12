@@ -1,13 +1,11 @@
 import { PrismaAdapter } from '@auth/prisma-adapter'
+import prisma from '@db/prisma'
 import Argon2 from '@lib/argon2'
-import { PrismaClient } from '@prisma/client'
 import { getLanguageFromClient } from '@src/lib/httpRuquestUtils'
 import { NextApiRequest, NextApiResponse } from 'next'
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GitHubProvider from 'next-auth/providers/github'
-
-const prisma = new PrismaClient()
 
 const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
