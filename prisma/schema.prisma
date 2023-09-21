@@ -32,24 +32,25 @@ model Account {
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
-  userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
 }
 
 model User {
-  id            String     @id @default(cuid())
+  id            String        @id @default(cuid())
   name          String?
-  email         String?    @unique
+  email         String?       @unique
   emailVerified DateTime?
   image         String?
   password      String?
   language      String?
-  role          Role       @default(USER)
+  role          Role          @default(USER)
   accounts      Account[]
   sessions      Session[]
   questions     Question[]
   solutions     Solution[]
+  translations  Translation[]
 }
 
 model VerificationToken {
@@ -73,25 +74,40 @@ model Tag {
   id        String     @id @default(cuid())
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  name      String
+  name      String     @unique
   author    String
   questions Question[]
 }
 
 model Question {
-  id          String     @id @default(cuid())
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  title       String
+  id        String        @id @default(cuid())
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  author    User?         @relation(fields: [authorId], references: [id])
+  authorId  String?
+  data      Translation[]
+  tags      Tag[]
+  solution  Solution[]
+}
+
+model Translation {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  author      User?    @relation(fields: [authorId], references: [id])
+  authorId    String?
+  Question    Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  questionId  String
+  language    String
+  title       String   @unique
   description String?
   response    String?
-  author      User?      @relation(fields: [authorId], references: [id])
-  authorId    String?
-  tags        Tag[]
-  solution    Solution[]
+
+  @@unique([questionId, language])
 }
 
 enum Role {
   USER
   ADMIN
+  GOD
 }

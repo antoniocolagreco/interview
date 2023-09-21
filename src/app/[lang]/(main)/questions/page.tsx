@@ -1,10 +1,11 @@
-import { FC, HTMLAttributes } from 'react'
+import { HTMLAttributes } from 'react'
+import { Page } from '../../../../types/pages'
 
-type QuestionsPagesProps = HTMLAttributes<HTMLDivElement> & { searchParams: {} }
+type QuestionsPagesProps = HTMLAttributes<HTMLDivElement> & {}
 
-const QuestionsPages: FC<QuestionsPagesProps> = (props) => {
+const QuestionsPages: Page<QuestionsPagesProps> = (props) => {
   const { searchParams, ...otherProps } = props
-  return <div {...otherProps}>QuestionsPages</div>
+  return <div {...otherProps}></div>
 }
 
 export default QuestionsPages

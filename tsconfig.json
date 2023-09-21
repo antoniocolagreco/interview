@@ -27,6 +27,7 @@
       "@store/*": ["./src/store/*"],
       "@features/*": ["./src/features/*"],
       "@db/*": ["./src/db/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "@translations/*": ["./translations/*"]
     }
   },

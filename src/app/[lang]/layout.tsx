@@ -4,13 +4,13 @@ import { Inter } from 'next/font/google'
 import { FC, HTMLAttributes } from 'react'
 import Providers from '../../components/Providers/Providers'
 import getDictionary from '../../lib/dictionary'
-import { LayoutMetaDataType } from '../../types/next'
+import { LayoutMetaData } from '../../types/pages'
 
 const inter = Inter({ subsets: ['latin'] })
 
 type Params = { params: { lang: string } }
 
-export const generateMetadata: LayoutMetaDataType<Params> = async (props) => {
+export const generateMetadata: LayoutMetaData<Params> = async (props) => {
   const d = getDictionary(props.params.lang)
   return { title: d.title }
 }
@@ -27,7 +27,6 @@ const RootLayout: FC<RootLayoutProps> = (props) => {
     <html lang={lang} className='min-h-screen'>
       <body className={clsx(inter.className, 'min-h-screen text-neutral-800 flex flex-col overflow-x-hidden')}>
         <Providers>{children}</Providers>
-        <div id='interview-portal' />
       </body>
     </html>
   )

@@ -1,8 +1,8 @@
 import { headers } from 'next/headers'
 import 'server-only'
 
-const SUPPORTED_LANGUAGES = process.env.SUPPORTED_LANGUAGES.split(',')
-const DEFAULT_LANGUAGE = process.env.DEFAULT_LANGUAGE
+const SUPPORTED_LANGUAGES = process.env.NEXT_PUBLIC_SUPPORTED_LANGUAGES.split(',')
+const DEFAULT_LANGUAGE = process.env.NEXT_PUBLIC_DEFAULT_LANGUAGE
 
 type HeadersKeys =
   | 'host'

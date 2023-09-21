@@ -5,7 +5,7 @@ import { FC, HTMLAttributes } from 'react'
 type OverlayProps = HTMLAttributes<HTMLDivElement> &
   TransitionClasses &
   TransitionEvents & {
-    show?: boolean
+    show: boolean
     appear?: boolean
   }
 
@@ -13,12 +13,12 @@ const Overlay: FC<OverlayProps> = (props) => {
   const { className, ...otherProps } = props
   return (
     <Transition
-      className='absolute inset-0 bg-black'
+      className='absolute inset-0 bg-black/30 backdrop-blur-xl'
       enter='transition-all'
       enterFrom='opacity-0'
-      enterTo='opacity-20 backdrop-blur-sm'
+      enterTo='opacity-100 '
       leave='transition-all'
-      leaveFrom='opacity-20 backdrop-blur-sm'
+      leaveFrom='opacity-100'
       leaveTo='opacity-0'
       {...otherProps}
     />

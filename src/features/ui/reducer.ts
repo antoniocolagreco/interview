@@ -1,27 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-type UIInitialStateType = {
+type UIStateType = {
   isMobileMenuOpen: boolean
-  isOverlayShown: boolean
 }
 
-const initialState: UIInitialStateType = {
+const initialState: UIStateType = {
   isMobileMenuOpen: false,
-  isOverlayShown: false,
 }
 
 const uiSlice = createSlice({
   name: 'ui',
   initialState,
   reducers: {
-    switchMobileMenuState: (state) => {
+    switchMobileMenu: (state: UIStateType) => {
       state.isMobileMenuOpen = !state.isMobileMenuOpen
-      console.log(state.isMobileMenuOpen)
+    },
+    showMobileMenu: (state: UIStateType) => {
+      state.isMobileMenuOpen = true
+    },
+    hideMobileMenu: (state: UIStateType) => {
+      state.isMobileMenuOpen = false
     },
   },
 })
 
 export const {
-  actions: { switchMobileMenuState },
+  actions: { switchMobileMenu, hideMobileMenu, showMobileMenu },
   reducer: uiReducer,
 } = uiSlice

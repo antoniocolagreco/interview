@@ -142,7 +142,7 @@ const Auth: FC<AuthProps> = (props) => {
             className='w-full'
             icon={<LuLogIn className='text-xl' />}
             isLoading={isLoading === 'credentials'}
-            variant='cancel'
+            variant='dark'
             type='button'
             onClick={() => signOut({ redirect: false })}
           >
@@ -154,7 +154,7 @@ const Auth: FC<AuthProps> = (props) => {
         <>
           <Separator className='my-4' />
           <Button
-            variant='secondary'
+            variant='light'
             className='w-full'
             icon={<FaGithub className='text-2xl' />}
             isLoading={isLoading === 'github'}

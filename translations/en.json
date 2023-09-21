@@ -1,7 +1,7 @@
 {
   "locale": "en",
   "language": "english",
-  "title": "interview questions",
+  "project_title": "Interview questions",
   "name": "Name",
   "email_address": "Email address",
   "password": "Password",
@@ -24,5 +24,26 @@
   "email_already_in_use": "Email is already in use.",
   "invalid_credentials": "Invalid credentials.",
   "create_account": "Create an account",
-  "user_photo": "User photo"
+  "user_photo": "User photo",
+  "routes": {
+    "home": "Home",
+    "questions": "Questions",
+    "solutions": "Solutions",
+    "settings": "Settings",
+    "admin_questions": "Questions",
+    "admin_tags": "Tags",
+    "admin_users": "Users"
+  },
+  "sort_by_newest": "Sort by newest",
+  "sort_by_oldest": "Sort by oldest",
+  "sort_by_name": "Sort by name",
+  "sort_by_name_reverse": "Sort by name reversed",
+  "title": "Title",
+  "description": "Description",
+  "tags": "Tags",
+  "add_new_question": "Add new question",
+  "search": "Search",
+  "ok": "OK",
+  "cancel": "Cancel",
+  "search_filter": "search filter"
 }

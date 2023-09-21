@@ -5,11 +5,11 @@ import Link from '@components/Link/Link'
 import SessionProvider from '@components/SessionProvider/SessionProvider'
 import getDictionary from '@lib/dictionary'
 import { HTMLAttributes } from 'react'
-import { DynamicPageType } from '../../../../types/next'
+import { DynamicPage } from '../../../../types/pages'
 
 type LoginPageProps = HTMLAttributes<HTMLDivElement> & { searchParams: {}; params: { lang: string } }
 
-const LoginPage: DynamicPageType<LoginPageProps> = async (props) => {
+const LoginPage: DynamicPage<LoginPageProps> = async (props) => {
   const {
     searchParams,
     params: { lang },

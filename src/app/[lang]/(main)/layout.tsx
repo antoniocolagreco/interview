@@ -1,7 +1,7 @@
+import MenuContainer from '@components/Menu/MenuContainer'
 import MenuContent from '@components/Menu/MenuContent'
 import NavBar from '@src/components/NavBar/NavBar'
 import { FC, Fragment, HTMLAttributes } from 'react'
-import MenuContainer from '../../../components/Menu/MenuContainer'
 
 type MainLayoutProps = HTMLAttributes<HTMLElement> & { params: { lang: string } }
 
